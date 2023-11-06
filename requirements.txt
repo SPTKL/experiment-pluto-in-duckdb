@@ -1,0 +1,7 @@
+duckdb==0.9.1
+jupysql
+pandas
+matplotlib
+duckdb-engine
+sqlalchemy
+psycopg2
