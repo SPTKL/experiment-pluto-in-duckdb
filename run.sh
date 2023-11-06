@@ -1,12 +1,11 @@
 #!/bin/bash
 
 # Set your database connection parameters
-DB_NAME=yourdbname
-DB_USER=yourusername
-DB_PASS=yourpassword
+DB_NAME=postgres
+DB_USER=postgres
+DB_PASS=postgres
 DB_HOST=localhost # Or use 'host.docker.internal' if the DB is on the host outside of Docker
 DB_PORT=5432
-TABLE_NAME=yourtablename
 
 function load_shapefile {
     local SHAPEFILE_PATH=$1
@@ -22,6 +21,20 @@ function load_shapefile {
 }
 
 case $1 in 
+    install)
+        pip install -r requirements.txt
+        mkdir -p pg 
+        mkdir -p duckdb
+        ;;
+    download)
+        rm -rf zoning
+        rm -rf pluto
+        curl -O https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nyc_mappluto_23v3_unclipped_shp.zip
+        curl -O https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/nycgiszoningfeatures_202309shp.zip
+        unzip nycgiszoningfeatures_202309shp.zip -d zoning
+        unzip nyc_mappluto_23v3_unclipped_shp.zip -d pluto
+        rm -f *.zip
+        ;;
     create) 
         # Make sure the volume option (-v) comes before the container name (--name)
         mkdir -p pg
