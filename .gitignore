@@ -165,3 +165,4 @@ zoning
 *.zip
 *.ddb
 *.ddb.wal 
+duckdb
