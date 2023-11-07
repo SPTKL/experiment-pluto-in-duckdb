@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Set your database connection parameters
-DB_NAME=postgres
-DB_USER=postgres
-DB_PASS=postgres
+DB_NAME=pg
+DB_USER=pg
+DB_PASS=pg
 DB_HOST=localhost # Or use 'host.docker.internal' if the DB is on the host outside of Docker
 DB_PORT=5432
 
@@ -39,7 +39,6 @@ case $1 in
         # Make sure the volume option (-v) comes before the container name (--name)
         mkdir -p pg
         docker run \
-            -v "$(pwd)"/pg:/var/lib/postgresql/data \
             --name postgres \
             -e POSTGRES_DB="$DB_NAME" \
             -e POSTGRES_USER="$DB_USER" \
